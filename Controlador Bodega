@@ -1,0 +1,41 @@
+package controlador;
+
+import java.util.ArrayList;
+
+/**
+ *
+ * @author USUARIO WINDOWS
+ */
+public class CtlBodega {
+    
+    public CtlBodega() {
+    }
+    
+    public boolean SolicitudGuardar(int codigo, String nombre, String direccion, int telefono) {
+        ClsBodega bodega = new ClsBodega(codigo, nombre, direccion, telefono);
+        BodegaDAO bodDAO = new BodegaDAO();
+        return bodDAO.guardarBodega(bodega);
+    }
+    
+    public boolean SolicitudModificar(int codigo, String nombre, String direccion, int telefono) {
+        ClsBodega bodega = new ClsBodega(codigo, nombre, direccion, telefono);
+        BodegaDAO bodDAO = new BodegaDAO();
+        return bodDAO.modificarBodega(codigo, nombre, direccion, telefono);
+    }
+    
+    public ClsBodega SolicitudBuscar(int codigo) {
+        BodegaDAO bodDAO = new BodegaDAO();
+        return bodDAO.buscarBodega(codigo);
+    }
+    
+    public boolean solicitudEliminar(int codigo) {
+        BodegaDAO docDAO = new BodegaDAO();
+        return bodDAO.eliminarBodega(codigo);
+    }
+    
+    public ArrayList<ClsBodega> solicitudListar() {
+        BodegaDAO docDAO = new BodegaDAO();
+        return docDAO.listarBodega();
+    }
+    
+}

@@ -1,0 +1,18 @@
+// a continuación les dejo el código para la creación de la base de datos de Bodega y la tabla detalle Stock.
+
+create table bodega(
+codigo int primary key,
+nombre varchar(50) not null,
+direccion varchar (50) not null,
+telefono int not null
+);
+
+create table stock(
+bodega int primary key,
+producto int primary key,
+proveedor int primary key,
+cantidad int not null,
+foreign key (bodega) references bodega(codigo),
+foreign key (producto) references producto(codigo_producto),
+foreign key (proveedor) references proveedor(codigo)
+);

@@ -1,0 +1,30 @@
+public boolean guardarFactura(Factura factura) {
+        String consulta = "insert into factura (codigo,cliente,vendedor,total,totalIva,direccionEnvio,estado) "
+                + "values"
+                + "("+ factura.getCodigo()+ ",'" + factura.getCliente()+ "','"+ factura.getVendedor()+ "','"
+                + factura.getTotal()+ "','"
+                + factura.getTotalIva()+ "','" + factura.getDireccionEnvio()+ "','" + factura.getEstado()+ "');";
+        System.out.println(consulta);
+        return super.ejecutar(consulta);
+    }
+    
+    public Factura buscarFactura(int codigo) {
+        String consulta = "select codigo,cliente,vendedor,total,totalIva,direccionEnvio,estado from factura "
+                + "where codigo='" + codigo + "'";
+        Factura fa = new Factura();
+        super.ejecutarRetorno(consulta);
+        try {
+            if (resultadoDB.next()) {
+                fa.setCodigo(resultadoDB.getInt("codigo"));
+                fa.setCliente(resultadoDB.getInt("clinete"));
+                fa.setVendedor(resultadoDB.getInt("vendedor"));
+                fa.setTotal(resultadoDB.getDouble("total"));
+                fa.setTotalIva(resultadoDB.getDouble("totalIva"));
+                fa.setDireccionEnvio(resultadoDB.getString("direccionEnvio"));
+                fa.setEstado(resultadoDB.getInt("estado"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Esto se Tosto");
+        }
+        return fa;
+    }

@@ -1,0 +1,33 @@
+/** En el proyecto crea una clase tipo jUnit Test en el paquete ubicado en Test Packages/<default package> 
+/* le llama a la clase DAODetalleFacturaTest
+**/
+
+public class DAODetalleFacturaTest {
+
+    private DetalleFactura detalle;
+    private DetalleDAO detalleDao;
+
+    @Test
+    public void registrar() {
+        System.out.println("Entro a test crear detalle");
+
+        detalle = new DetalleFactura(01,02, "Andromeda","Shun", "caballerodebronce@atenas.co", 12345, "las 12 casas");
+
+        detalleDao = new DetalleDAO();
+
+        boolean resultadoObtenido = detalleDao.guardarDetalle(detalle);
+        boolean resultadoEsperado = true;
+
+        DetalleFactura detalleBuscado = detalleDao.buscarDetalle(detalle.getCodigo());
+        if (detalleBuscado.getCodigo() == detalle.getCodigo()) {
+            resultadoObtenido = true;
+        } else {
+            resultadoObtenido = false;
+        }
+
+        assertEquals(resultadoObtenido, resultadoEsperado);
+
+    }
+}
+
+// POR ULTIMO, IMPORTAR TODAS LAS CLASES CORRESPONDIENTES.

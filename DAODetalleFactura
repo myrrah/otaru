@@ -1,0 +1,79 @@
+package dao;
+
+import conexion.ClsConexion;
+import java.sql.SQLException;
+
+/**
+ *
+ * @author USUARIO WINDOWS
+ */
+public class DetalleDAO extends ClsConexion{
+    
+    DetalleFactura dao = new DetalleFactura();
+    
+    public boolean guardarDetalle(DetalleFactura detalle) {
+        String consulta = "insert into detallefactura (factura,producto,cantidad,valorUnitario); "
+                + "values"
+                + "('"+ detalle.getFactura()+ "','" + detalle.getProducto()+ "','"+ detalle.getCantidad()+ "'"
+                + ",'"+ detalle.getValorUnitario()+ "'" + ");";
+        System.out.println(consulta);
+        return super.ejecutar(consulta);
+    }
+    
+    public DetalleFactura buscarDetalle(int factura) {
+        String consulta = "select factura,producto,cantidad,valorUnitario from detallefactura "
+                + "where factura='" + factura + "'";
+        super.ejecutarRetorno(consulta);
+        try {
+            if (resultadoDB.next()) {
+                dao.setFactura(resultadoDB.getInt("factura"));
+                dao.setProducto(resultadoDB.getInt("producto"));
+                dao.setCantidad(resultadoDB.getInt("cantidad"));
+                dao.setValorUnitario(resultadoDB.getDouble("valorUnitario"));
+            }
+        } catch (SQLException ex) {
+            System.out.println("Esto se Tosto");
+        }
+        return dao;
+    }
+    
+    public boolean modificarDetalle(DetalleFactura detalle) {
+        String consulta = "update detallefactura set factura='" + detalle.getFactura()
+                + "',producto='" + detalle.getProducto()
+                + "',cantidad='" + detalle.getCantidad()
+                + "',valorUnitario='" + detalle.getValorUnitario();
+        return super.ejecutar(consulta);
+    }
+    
+    public boolean eliminarDetalle(int factura) {
+        String consulta = "delete from detallefactura where factura=" + factura;
+        return super.ejecutar(consulta);
+    }
+    
+    /*public DefaultTableModel listarVendedor() {
+        
+        DefaultTableModel modelTabla;
+        String nombreColumnas[] = {"CODIGO","CEDULA", "NOMBRE", "APELLIDO", "CORREO","CELULAR","DIRECCION"};
+        modelTabla = new DefaultTableModel(new Object[][]{},nombreColumnas);
+        
+        String consulta = "select codigo, cedula, nombre, apellido, correo, telefono, direccion from vendedor ;";
+        super.ejecutarRetorno(consulta);
+        
+        try {
+            while (resultadoDB.next()) {
+                modelTabla.addRow(new Object[]{
+                    resultadoDB.getInt("codigo"),
+                    resultadoDB.getInt("cedula"),
+                    resultadoDB.getString("nombre"),
+                    resultadoDB.getString("apellido"),
+                    resultadoDB.getString("correo"),
+                    resultadoDB.getInt("telefono"),
+                    resultadoDB.getString("direccion")});
+            }
+        } catch (SQLException ex) {
+            System.out.println("Esto se Tosto");
+        }
+        return modelTabla;
+    }*/
+    
+}

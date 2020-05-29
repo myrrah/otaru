@@ -1,0 +1,49 @@
+/** En el proyecto crea una clase tipo jUnit Test en el paquete ubicado en Test Packages/<default package> 
+/* le llama a la clase DAODetalleFacturaTest
+**/
+
+@Test
+    public void testModificarFactura() {
+        System.out.println("Entro a test modificar factura");
+
+        factura = new Factura(01, 02, 03, 78.5, 16.3, "Casa de brayan", 04);
+
+        facturaDao = new FacturaDAO();
+
+        boolean resultadoObtenido = facturaDao.modificarFactura(factura);
+        boolean resultadoEsperado = true;
+
+        Factura facturaBuscada = facturaDao.buscarFactura(factura.getCodigo());
+        if (facturaBuscada.getCodigo() == factura.getCodigo()) {
+            resultadoObtenido = true;
+        } else {
+            resultadoObtenido = false;
+        }
+
+        assertEquals(resultadoObtenido, resultadoEsperado);
+
+    }
+
+    @Test
+    public void testEliminarFactura() {
+        System.out.println("Entro a test eliminar factura");
+
+        factura = new Factura(01, 02, 03, 78.5, 16.3, "Casa de brayan", 04);
+
+        facturaDao = new FacturaDAO();
+
+        boolean resultadoObtenido = facturaDao.eliminarFactura(factura.getCodigo());
+        boolean resultadoEsperado = false;
+
+        Factura facturaBuscada = facturaDao.buscarFactura(factura.getCodigo());
+
+        if (facturaBuscado.getCodigo() == factura.getCodigo()) {
+            resultadoObtenido = true;
+        } else {
+            resultadoObtenido = false;
+        }
+
+        assertEquals(resultadoObtenido, resultadoEsperado);
+    }
+    
+    // POR ULTIMO, IMPORTAR TODAS LAS CLASES CORRESPONDIENTES.
